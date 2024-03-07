@@ -1,0 +1,98 @@
+import React, { useEffect, useState } from "react";
+import "./Weather.css";
+import { IoSearch } from "react-icons/io5";
+import rain from "../public/rain.svg";
+import sun from "../public/sun.svg";
+import snow from "../public/snow.svg";
+
+function Weather() {
+  const [weatherData, setWeatherData] = useState({
+    humidity: "",
+    windSpeed: "",
+    temperature: "",
+    cityName: "",
+  });
+  const [image, setImage] = useState("../public/sun.svg");
+
+  const api_key = "07aa79ee4c7d828c4abc989c05532a2d";
+
+  const searchCity = async () => {
+    const inputField = document.querySelector(".inputField");
+    const city = inputField.value.trim();
+    if (city === "") {
+      return;
+    }
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+
+    setWeatherData({
+      humidity: data.main.humidity + " %",
+      windSpeed: data.wind.speed + " km/h",
+      temperature: data.main.temp + "°C",
+      cityName: data.name,
+    });
+
+    const temp = data.main.temp;
+    if (temp >= 22) {
+      setImage(sun);
+    } else if (temp >= 15 && temp <= 1) {
+      setImage(rain);
+    } else {
+      setImage(snow);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log(temp);
+  // }, [temp]);
+
+  return (
+    <div className="main-container">
+      <div className="weather">
+        <div className="search">
+          <input type="text" className="inputField" placeholder="Search" />
+          <div className="btn" onClick={searchCity}>
+            <IoSearch />
+          </div>
+        </div>
+        <div className="image">
+          <img src={image} alt="" />
+        </div>
+
+        <div className="tempAndCity">
+          <p className="temp">{weatherData.temperature}</p>
+          <p className="city">{weatherData.cityName}</p>
+        </div>
+
+        <div className="data-container">
+          <div className="element">
+            <img src="../public/humidity.png" alt="" />
+            <div className="data">
+              <div className="humid-percent">{weatherData.humidity}</div>
+              <div className="text">Humidity</div>
+            </div>
+          </div>
+
+          <div className="element">
+            <img src="../public/wind.png" alt="" />
+            <div className="data">
+              <div className="wind-rate">{weatherData.windSpeed}</div>
+              <div className="text">Wind Speed</div>
+
+              {/* {weatherData > 200 ? (<>asdsd</>): weatherData >400 ? (<></>)} */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Weather;
