@@ -16,18 +16,29 @@
 }
 
 .weather {
-  background-color: #4942e4;
+  background-color: #dba58a;
   width: 350px;
-  height: 450px;
+  /* height: auto; */
   padding: 20px;
   border-radius: 10px;
 }
 
-@media only screen and (max-width:355px){
-  .weather{
+.search input {
+  outline: none;
+}
+
+.search .btn {
+  cursor: pointer;
+}
+
+.image {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 355px) {
+  .weather {
     width: 100%;
   }
-
 }
 
 .search {
@@ -63,7 +74,7 @@
 }
 
 .image img {
-  width: 200px;
+  /* width: 200px; */
   height: 200px;
   display: inline-block;
 }
@@ -99,7 +110,7 @@
 
 .data {
   font-size: 20px;
-  
+  /* margin-bottom: 50px; */
 }
 
 .text {
