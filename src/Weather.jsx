@@ -16,7 +16,6 @@ function Weather() {
   });
   const [image, setImage] = useState([]);
 
-
   const api_key = "07aa79ee4c7d828c4abc989c05532a2d";
 
   const searchCity = async () => {
@@ -61,32 +60,37 @@ function Weather() {
             <IoSearch />
           </div>
         </div>
-        <div className="image">
-          <img src={image} alt="" />
-        </div>
 
-        <div className="tempAndCity">
-          <p className="temp">{weatherData.temperature}</p>
-          <p className="city">{weatherData.cityName}</p>
-        </div>
+        {weatherData.humidity && (
+          <div className="weather-content">
+            <div className="image">
+              <img src={image} alt="" />
+            </div>
 
-        <div className="data-container">
-          <div className="element">
-            <img src={humidity} alt="" />
-            <div className="data">
-              <div className="humid-percent">{weatherData.humidity}</div>
-              <div className="text">Humidity</div>
+            <div className="tempAndCity">
+              <p className="temp">{weatherData.temperature}</p>
+              <p className="city">{weatherData.cityName}</p>
+            </div>
+
+            <div className="data-container">
+              <div className="element">
+                <img src={humidity} alt="" />
+                <div className="data">
+                  <div className="humid-percent">{weatherData.humidity}</div>
+                  <div className="text">Humidity</div>
+                </div>
+              </div>
+
+              <div className="element">
+                <img src={wind} alt="" />
+                <div className="data">
+                  <div className="wind-rate">{weatherData.windSpeed}</div>
+                  <div className="text">Wind Speed</div>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="element">
-            <img src={wind} alt="" />
-            <div className="data">
-              <div className="wind-rate">{weatherData.windSpeed}</div>
-              <div className="text">Wind Speed</div>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
